@@ -1,0 +1,63 @@
+﻿<h1>Auditor Page</h1>
+
+<!-- <table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 30%">First Name</th>
+            <th style="width: 30%">Last Name</th>
+            <th style="width: 30%">Username</th>
+            <th style="width: 10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.username}}</td>
+    </tbody>
+</table> -->
+
+<mat-form-field  appearance="standard">
+    <mat-label></mat-label>
+    <input matInput placeholder="Filter Table" search (keyup)="checkFilter($event)" #input/>
+</mat-form-field>
+<mat-form-field appearance="fill">
+    <mat-label>Format</mat-label>
+    <mat-select [formControl]="formatControl">
+      <mat-option *ngFor="let option of formatOptions" [value]="option.value">
+        {{ option.label }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+<div class="mat-elevation-z8">
+    <table mat-table matSort [dataSource]="dataSource">
+        <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+            <td mat-cell *matCellDef="let row"> {{row.firstName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+            <td mat-cell *matCellDef="let row"> {{row.lastName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="userName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
+            <td mat-cell *matCellDef="let row"> {{row.username}}</td>
+        </ng-container>
+        <ng-container matColumnDef="role">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
+            <td mat-cell *matCellDef="let row"> {{row.role}}</td>
+        </ng-container>
+        <ng-container matColumnDef="dateTime">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date and Time</th>
+            <td mat-cell *matCellDef="let row"> {{ row.createdDate }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumn"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumn"></tr>
+        <tr *matNoDataRow>
+            <td class="mat-cell" colspan="4">Search does not find user data from the record for your text {{input.value}}</td>
+        </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5,10]" arail-labels="select page of users"></mat-paginator>
+</div>
